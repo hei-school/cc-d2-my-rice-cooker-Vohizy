@@ -19,13 +19,13 @@ func (rc *RiceCooker) checkPower() bool {
 // turnOn turns on the rice cooker.
 func (rc *RiceCooker) turnOn() {
 	rc.power = true
-	fmt.Println("Salut !! Vous êtes sur le rice cooker. Le rice cooker est allumé.")
+	fmt.Println("Hello!! You are on the rice cooker. The rice cooker is turned on.")
 }
 
 // turnOff turns off the rice cooker.
 func (rc *RiceCooker) turnOff() {
 	rc.power = false
-	fmt.Println("Le rice cooker est éteint.")
+	fmt.Println("The rice cooker is turned off.")
 }
 
 // chooseFunction handles user input to perform actions on the rice cooker.
@@ -33,33 +33,33 @@ func (rc *RiceCooker) chooseFunction(userInput string) {
 	switch userInput {
 	case "1":
 		rc.turnOn()
-		action, err := rc.getValidNumber("Que voulez-vous faire ? (1 pour cuire / 2 pour bouillir): ", []int{1, 2})
+		action, err := rc.getValidNumber("What do you want to do? (1 to cook / 2 to boil): ", []int{1, 2})
 		if err != nil {
-			fmt.Println("Erreur:", err)
+			fmt.Println("Error:", err)
 			return
 		}
 		switch action {
 		case 1:
-			duration, err := rc.getValidNumber("Combien de minutes souhaitez-vous cuire ? ", nil)
+			duration, err := rc.getValidNumber("How many minutes do you want to cook? ", nil)
 			if err != nil {
-				fmt.Println("Erreur:", err)
+				fmt.Println("Error:", err)
 				return
 			}
-			temperature, err := rc.getValidNumber("À quelle température souhaitez-vous cuire ? ", nil)
+			temperature, err := rc.getValidNumber("At what temperature do you want to cook? ", nil)
 			if err != nil {
-				fmt.Println("Erreur:", err)
+				fmt.Println("Error:", err)
 				return
 			}
 			rc.cook(duration, temperature)
 		case 2:
 			rc.boil()
 		default:
-			fmt.Println("Action non reconnue.")
+			fmt.Println("Unrecognized action.")
 		}
 	case "2":
 		rc.turnOff()
 	default:
-		fmt.Println("Commande non reconnue.")
+		fmt.Println("Unrecognized command.")
 	}
 }
 
@@ -71,7 +71,7 @@ func (rc *RiceCooker) getValidNumber(promptMessage string, validChoices []int) (
 		fmt.Scanln(&userInput)
 		number, err := strconv.Atoi(userInput)
 		if err != nil {
-			fmt.Println("Erreur: Veuillez saisir un nombre valide.")
+			fmt.Println("Error: Please enter a valid number.")
 			continue
 		}
 		if len(validChoices) > 0 {
@@ -83,7 +83,7 @@ func (rc *RiceCooker) getValidNumber(promptMessage string, validChoices []int) (
 				}
 			}
 			if !valid {
-				fmt.Println("Erreur: Veuillez saisir un nombre valide parmi les choix spécifiés.")
+				fmt.Println("Error: Please enter a valid number among the specified choices.")
 				continue
 			}
 		}
@@ -93,24 +93,24 @@ func (rc *RiceCooker) getValidNumber(promptMessage string, validChoices []int) (
 
 // cook simulates cooking for a specified duration and temperature.
 func (rc *RiceCooker) cook(duration, temperature int) {
-	fmt.Printf("Cuisson en cours pendant %d minute(s) à %d°C...\n", duration, temperature)
+	fmt.Printf("Cooking in progress for %d minute(s) at %d°C...\n", duration, temperature)
 	rc.sleep(duration)
-	fmt.Println("Cuisson terminée!")
+	fmt.Println("Cooking completed!")
 }
 
 // boil simulates boiling water.
 func (rc *RiceCooker) boil() {
-	fmt.Println("Bouillir de l'eau en cours...")
-	boilingTime := 10 // Durée de la simulation (10 minutes par exemple)
+	fmt.Println("Boiling water in progress...")
+	boilingTime := 10 // Simulation duration (10 minutes for example)
 	currentTemperature := 0
 
 	for i := 1; i <= boilingTime; i++ {
 		currentTemperature += 10
 		rc.sleep(1)
-		fmt.Printf("Température de l'eau: %d°C - Durée restante: %d minutes\n", currentTemperature, boilingTime-i)
+		fmt.Printf("Water temperature: %d°C - Remaining time: %d minutes\n", currentTemperature, boilingTime-i)
 	}
 
-	fmt.Println("L'eau a atteint 100°C. Arrêt automatique.")
+	fmt.Println("Water has reached 100°C. Automatic shutdown.")
 }
 
 // sleep pauses execution for the specified number of minutes.
@@ -129,10 +129,10 @@ func currentTimeMillis() int64 {
 func main() {
 	myRiceCooker := &RiceCooker{}
 
-	fmt.Print("Salut !! Vous êtes sur le rice cooker. Voulez-vous l'allumer ? (1 pour oui / 2 pour non): ")
+	fmt.Print("Hello! You are on the rice cooker. Do you want to turn it on? (1 for yes / 2 for no): ")
 	userDecision, err := myRiceCooker.getValidNumber("", []int{1, 2})
 	if err != nil {
-		fmt.Println("Erreur:", err)
+		fmt.Println("Error:", err)
 		return
 	}
 
