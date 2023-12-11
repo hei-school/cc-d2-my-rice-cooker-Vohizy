@@ -3,26 +3,32 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"time"
 )
 
+// RiceCooker represents a rice cooker.
 type RiceCooker struct {
 	power bool
 }
 
+// checkPower checks the power status of the rice cooker.
 func (rc *RiceCooker) checkPower() bool {
 	return rc.power
 }
 
+// turnOn turns on the rice cooker.
 func (rc *RiceCooker) turnOn() {
 	rc.power = true
 	fmt.Println("Salut !! Vous êtes sur le rice cooker. Le rice cooker est allumé.")
 }
 
+// turnOff turns off the rice cooker.
 func (rc *RiceCooker) turnOff() {
 	rc.power = false
 	fmt.Println("Le rice cooker est éteint.")
 }
 
+// chooseFunction handles user input to perform actions on the rice cooker.
 func (rc *RiceCooker) chooseFunction(userInput string) {
 	switch userInput {
 	case "1":
@@ -57,6 +63,7 @@ func (rc *RiceCooker) chooseFunction(userInput string) {
 	}
 }
 
+// getValidNumber prompts the user for a valid number and validates the input.
 func (rc *RiceCooker) getValidNumber(promptMessage string, validChoices []int) (int, error) {
 	var userInput string
 	for {
@@ -84,12 +91,14 @@ func (rc *RiceCooker) getValidNumber(promptMessage string, validChoices []int) (
 	}
 }
 
+// cook simulates cooking for a specified duration and temperature.
 func (rc *RiceCooker) cook(duration, temperature int) {
 	fmt.Printf("Cuisson en cours pendant %d minute(s) à %d°C...\n", duration, temperature)
 	rc.sleep(duration)
 	fmt.Println("Cuisson terminée!")
 }
 
+// boil simulates boiling water.
 func (rc *RiceCooker) boil() {
 	fmt.Println("Bouillir de l'eau en cours...")
 	boilingTime := 10 // Durée de la simulation (10 minutes par exemple)
@@ -104,6 +113,7 @@ func (rc *RiceCooker) boil() {
 	fmt.Println("L'eau a atteint 100°C. Arrêt automatique.")
 }
 
+// sleep pauses execution for the specified number of minutes.
 func (rc *RiceCooker) sleep(minutes int) {
 	milliseconds := int64(minutes) * 60 * 1000
 	startTime := currentTimeMillis()
@@ -111,6 +121,7 @@ func (rc *RiceCooker) sleep(minutes int) {
 	}
 }
 
+// currentTimeMillis returns the current time in milliseconds.
 func currentTimeMillis() int64 {
 	return time.Now().UnixNano() / int64(time.Millisecond)
 }
