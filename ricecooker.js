@@ -11,14 +11,12 @@ class RiceCooker {
 
   turnOn() {
     this.power = true;
-    console.log(
-      "Salut !! Vous êtes sur le rice cooker. Le rice cooker est allumé."
-    );
+    console.log("Hello! You are on the rice cooker. The rice cooker is turned on.");
   }
 
   turnOff() {
     this.power = false;
-    console.log("Le rice cooker est éteint.");
+    console.log("The rice cooker is turned off.");
   }
 
   chooseFunction(userInput) {
@@ -26,18 +24,11 @@ class RiceCooker {
       case "1":
         this.turnOn();
         try {
-          const action = this.getValidNumber(
-            "Que voulez-vous faire ? (1 pour cuire / 2 pour bouillir): ",
-            [1, 2]
-          );
+          const action = this.getValidNumber("What do you want to do? (1 to cook / 2 to boil): ", [1, 2]);
           switch (action) {
             case 1:
-              const duration = this.getValidNumber(
-                "Combien de minutes souhaitez-vous cuire ? "
-              );
-              const temperature = this.getValidNumber(
-                "À quelle température souhaitez-vous cuire ? "
-              );
+              const duration = this.getValidNumber("How many minutes do you want to cook? ");
+              const temperature = this.getValidNumber("At what temperature do you want to cook? ");
               this.cook(duration, temperature);
               break;
 
@@ -46,10 +37,10 @@ class RiceCooker {
               break;
 
             default:
-              console.log("Action non reconnue.");
+              console.log("Unrecognized action.");
           }
         } catch (error) {
-          console.error("Erreur:", error.message);
+          console.error("Error:", error.message);
         }
         break;
 
@@ -58,7 +49,7 @@ class RiceCooker {
         break;
 
       default:
-        console.log("Commande non reconnue.");
+        console.log("Unrecognized command.");
     }
   }
 
@@ -67,17 +58,12 @@ class RiceCooker {
     while (true) {
       try {
         userInput = parseInt(prompt(promptMessage), 10);
-        if (
-          isNaN(userInput) ||
-          (validChoices.length > 0 && !validChoices.includes(userInput))
-        ) {
-          throw new Error(
-            "Veuillez saisir un nombre valide parmi les choix spécifiés."
-          );
+        if (isNaN(userInput) || (validChoices.length > 0 && !validChoices.includes(userInput))) {
+          throw new Error("Please enter a valid number among the specified choices.");
         }
         break;
       } catch (error) {
-        console.error("Erreur:", error.message);
+        console.error("Error:", error.message);
       }
     }
     return userInput;
@@ -85,35 +71,29 @@ class RiceCooker {
 
   cook(duration, temperature) {
     try {
-      console.log(
-        `Cuisson en cours pendant ${duration} minute(s) à ${temperature}°C...`
-      );
+      console.log(`Cooking in progress for ${duration} minute(s) at ${temperature}°C...`);
       this.sleep(duration);
-      console.log("Cuisson terminée!");
+      console.log("Cooking completed!");
     } catch (error) {
-      console.error("Erreur:", error.message);
+      console.error("Error:", error.message);
     }
   }
 
   boil() {
     try {
-      console.log("Bouillir de l'eau en cours...");
-      const boilingTime = 10; // Durée de la simulation (10 minutes par exemple)
+      console.log("Boiling water in progress...");
+      const boilingTime = 10; // Simulation duration (10 minutes, for example)
       let currentTemperature = 0;
 
       for (let i = 1; i <= boilingTime; i++) {
         currentTemperature += 10;
         this.sleep(1);
-        console.log(
-          `Température de l'eau: ${currentTemperature}°C - Durée restante: ${
-            boilingTime - i
-          } minutes`
-        );
+        console.log(`Water temperature: ${currentTemperature}°C - Remaining time: ${boilingTime - i} minutes`);
       }
 
-      console.log("L'eau a atteint 100°C. Arrêt automatique.");
+      console.log("Water has reached 100°C. Automatic shutdown.");
     } catch (error) {
-      console.error("Erreur:", error.message);
+      console.error("Error:", error.message);
     }
   }
 
@@ -124,15 +104,15 @@ class RiceCooker {
   }
 }
 
-// Exemple d'utilisation
+// Example usage
 const myRiceCooker = new RiceCooker();
 
 try {
   const userDecision = myRiceCooker.getValidNumber(
-    "Salut !! Vous êtes sur le rice cooker. Voulez-vous l'allumer ? (1 pour oui / 2 pour non): ",
+    "Hello! You are on the rice cooker. Do you want to turn it on? (1 for yes / 2 for no): ",
     [1, 2]
   );
   myRiceCooker.chooseFunction(userDecision.toString());
 } catch (error) {
-  console.error("Erreur:", error.message);
+  console.error("Error:", error.message);
 }
