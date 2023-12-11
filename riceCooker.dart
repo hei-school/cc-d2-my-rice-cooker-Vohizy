@@ -9,12 +9,12 @@ class RiceCooker {
 
   void turnOn() {
     power = true;
-    print("Salut !! Vous êtes sur le rice cooker. Le rice cooker est allumé.");
+    print("Hello!! You are on the rice cooker. The rice cooker is turned on.");
   }
 
   void turnOff() {
     power = false;
-    print("Le rice cooker est éteint.");
+    print("The rice cooker is turned off.");
   }
 
   void chooseFunction(String userInput) {
@@ -23,28 +23,28 @@ class RiceCooker {
         turnOn();
         try {
           int action = getValidNumber(
-              'Que voulez-vous faire ? (1 pour cuire / 2 pour bouillir): ', [1, 2]);
+              'What do you want to do? (1 to cook / 2 to boil): ', [1, 2]);
           switch (action) {
             case 1:
-              int duration = getValidNumber('Combien de minutes souhaitez-vous cuire ? ', null);
-              int temperature = getValidNumber('À quelle température souhaitez-vous cuire ? ', null);
+              int duration = getValidNumber('How many minutes do you want to cook? ', null);
+              int temperature = getValidNumber('At what temperature do you want to cook? ', null);
               cook(duration, temperature);
               break;
             case 2:
               boil();
               break;
             default:
-              print('Action non reconnue.');
+              print('Unrecognized action.');
           }
         } catch (error) {
-          print('Erreur: $error');
+          print('Error: $error');
         }
         break;
       case '2':
         turnOff();
         break;
       default:
-        print('Commande non reconnue.');
+        print('Unrecognized command.');
     }
   }
 
@@ -55,40 +55,40 @@ class RiceCooker {
       try {
         int number = int.parse(userInput);
         if (validChoices != null && !validChoices.contains(number)) {
-          throw FormatException('Veuillez saisir un nombre valide parmi les choix spécifiés.');
+          throw FormatException('Please enter a valid number among the specified choices.');
         }
         return number;
       } catch (e) {
-        print('Erreur: Veuillez saisir un nombre valide.');
+        print('Error: Please enter a valid number.');
       }
     }
   }
 
   void cook(int duration, int temperature) {
     try {
-      print('Cuisson en cours pendant $duration minute(s) à $temperature°C...');
+      print('Cooking in progress for $duration minute(s) at $temperature°C...');
       sleep(duration);
-      print('Cuisson terminée!');
+      print('Cooking completed!');
     } catch (error) {
-      print('Erreur: $error');
+      print('Error: $error');
     }
   }
 
   void boil() {
     try {
-      print('Bouillir de l\'eau en cours...');
-      const boilingTime = 10; // Durée de la simulation (10 minutes par exemple)
+      print('Boiling water in progress...');
+      const boilingTime = 10; // Simulation duration (10 minutes for example)
       int currentTemperature = 0;
 
       for (int i = 1; i <= boilingTime; i++) {
         currentTemperature += 10;
         sleep(1);
-        print('Température de l\'eau: $currentTemperature°C - Durée restante: ${boilingTime - i} minutes');
+        print('Water temperature: $currentTemperature°C - Remaining time: ${boilingTime - i} minutes');
       }
 
-      print('L\'eau a atteint 100°C. Arrêt automatique.');
+      print('Water has reached 100°C. Automatic shutdown.');
     } catch (error) {
-      print('Erreur: $error');
+      print('Error: $error');
     }
   }
 
@@ -102,7 +102,7 @@ class RiceCooker {
 void main() {
   final myRiceCooker = RiceCooker();
 
-  stdout.write('Salut !! Vous êtes sur le rice cooker. Voulez-vous l\'allumer ? (1 pour oui / 2 pour non): ');
+  stdout.write('Hello! You are on the rice cooker. Do you want to turn it on? (1 for yes / 2 for no): ');
   int userDecision = myRiceCooker.getValidNumber('', [1, 2]);
   myRiceCooker.chooseFunction(userDecision.toString());
 }
